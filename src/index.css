@@ -1,20 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --font-display: 'Lalezar', 'Vazirmatn', sans-serif;
+  --font-display: 'Baloo Bhaijaan 2', 'Vazirmatn', sans-serif;
   --font-body: 'Vazirmatn', sans-serif;
-  --ink: #0f2f35;
-  --ink-soft: #1c444c;
-  --muted: #4d6469;
-  --teal: #22a699;
-  --teal-deep: #0f5a6e;
-  --amber: #e08a2e;
-  --amber-deep: #c26d14;
+
+  --ink: #10251d;
+  --ink-soft: #1f3d31;
+  --muted: #5a6f64;
+  --paper: #f3f7f1;
+  --paper-2: #e7efe3;
+  --forest: #0d3b2c;
+  --forest-deep: #07261c;
+  --leaf: #7ec63b;
+  --lime: #c8f031;
+  --lime-ink: #24380a;
+  --sand: #d9e5cf;
+  --warn: #ffb25a;
+
   font-family: var(--font-body);
-  line-height: 1.7;
+  line-height: 1.75;
   font-weight: 400;
   color: var(--ink);
-  background: #e8f4f1;
+  background: var(--paper);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -46,5 +53,10 @@ input {
 }
 
 a {
-  color: var(--teal-deep);
+  color: var(--forest);
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--lime-ink);
 }

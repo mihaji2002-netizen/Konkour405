@@ -16,6 +16,13 @@ function loadDone(): Record<string, boolean> {
   }
 }
 
+function scrollToDay(id: string) {
+  document.getElementById(`day-${id}`)?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  })
+}
+
 export default function App() {
   const [group, setGroup] = useState<Group>(() => {
     const saved = localStorage.getItem(GROUP_KEY)
@@ -43,64 +50,58 @@ export default function App() {
 
   if (!group) {
     return (
-      <div className="page">
-        <div className="atmosphere" aria-hidden="true" />
-        <header className="hero">
-          <Logo size="hero" />
-          <p className="brand">فرجه ۱۴۰۵</p>
-          <h1>برنامه آماده‌سازی کنکور</h1>
-          <p className="hero-lead">
-            شیمی‌تون ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ مرداده، کنکور ۳۰ مرداد.
-            از این فرجه باید هم نهایی رو جمع کنیم هم تست بزنیم. اول بگو جزو کدوم گروهی.
-          </p>
-        </header>
-
-        <section className="group-pick" aria-label="انتخاب گروه">
-          <button type="button" className="group-btn group-a" onClick={() => setGroup('A')}>
-            <span className="group-tag">گروه A</span>
-            <strong>پایه رو برای کنکور خوندم</strong>
-            <p>
-              الان نیاز به مرور دارم برای زنده کردن توانایی‌هام توی پایه دهم و یازدهم.
+      <div className="landing">
+        <section className="hero-bleed">
+          <div className="hero-mesh" aria-hidden="true" />
+          <div className="hero-core">
+            <Logo size="hero" />
+            <p className="brand">فرجه ۱۴۰۵</p>
+            <p className="hero-lead">
+              شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ مرداده، کنکور ۳۰ مرداد. از این فرجه هم نهایی رو جمع
+              می‌کنیم هم تست می‌زنیم — اول بگو جزو کدوم گروهی.
             </p>
-          </button>
 
-          <button type="button" className="group-btn group-b" onClick={() => setGroup('B')}>
-            <span className="group-tag">گروه B</span>
-            <strong>پایه رو خوب نخوندم</strong>
-            <p>
-              سرمایه‌گذاری‌م روی دوازدهم بوده برای درصد گرفتن از کنکور.
-            </p>
-          </button>
+            <div className="group-pick" aria-label="انتخاب گروه">
+              <button type="button" className="group-btn group-a" onClick={() => setGroup('A')}>
+                <span className="group-tag">گروه A</span>
+                <strong>پایه رو برای کنکور خوندم</strong>
+                <p>الان نیاز به مرور دارم برای زنده کردن توانایی‌هام توی پایه دهم و یازدهم.</p>
+              </button>
+
+              <button type="button" className="group-btn group-b" onClick={() => setGroup('B')}>
+                <span className="group-tag">گروه B</span>
+                <strong>پایه رو خوب نخوندم</strong>
+                <p>سرمایه‌گذاری‌م روی دوازدهم بوده برای درصد گرفتن از کنکور.</p>
+              </button>
+            </div>
+          </div>
         </section>
-
-        <footer className="foot">
-          <Logo size="nav" />
-          <span>pepsino LAB · کنکور ۱۴۰۵</span>
-        </footer>
       </div>
     )
   }
 
   if (group === 'B') {
     return (
-      <div className="page">
-        <div className="atmosphere" aria-hidden="true" />
+      <div className="shell">
         <header className="topbar">
+          <div className="brand-lockup">
+            <Logo size="nav" />
+            <div>
+              <p className="brand-kicker">pepsino LAB</p>
+              <p className="brand small">فرجه ۱۴۰۵</p>
+            </div>
+          </div>
           <button type="button" className="ghost" onClick={resetGroup}>
             عوض کردن گروه
           </button>
-          <div className="brand-lockup">
-            <Logo size="nav" />
-            <p className="brand small">فرجه ۱۴۰۵</p>
-          </div>
         </header>
         <section className="coming">
           <Logo size="hero" />
           <p className="brand">گروه B</p>
           <h1>برنامه‌ت به زودی می‌آد</h1>
           <p>
-            گروه B برای بچه‌هایی‌ست که پایه رو خوب نخوندن و سرمایه‌گذاری‌شون روی دوازدهم بوده.
-            جزئیات برنامه‌شون هنوز اضافه نشده؛ فعلا گروه A آماده‌ست.
+            گروه B برای بچه‌هایی‌ست که پایه رو خوب نخوندن و سرمایه‌گذاری‌شون روی دوازدهم بوده. جزئیات
+            برنامه‌شون هنوز اضافه نشده؛ فعلا گروه A آماده‌ست.
           </p>
           <button type="button" className="primary" onClick={resetGroup}>
             برگشت به انتخاب گروه
@@ -112,22 +113,31 @@ export default function App() {
 
   const totalBlocks = days.reduce((n, d) => n + d.blocks.length, 0)
   const doneCount = Object.values(done).filter(Boolean).length
+  const progress = totalBlocks ? Math.round((doneCount / totalBlocks) * 100) : 0
 
   return (
-    <div className="page plan">
-      <div className="atmosphere" aria-hidden="true" />
-
+    <div className="shell plan">
       <header className="topbar">
-        <button type="button" className="ghost" onClick={resetGroup}>
-          عوض کردن گروه
-        </button>
         <div className="brand-lockup">
           <Logo size="nav" />
-          <p className="brand small">فرجه ۱۴۰۵</p>
+          <div>
+            <p className="brand-kicker">pepsino LAB</p>
+            <p className="brand small">فرجه ۱۴۰۵</p>
+          </div>
         </div>
-        <p className="progress">
-          {doneCount} از {totalBlocks} انجام شد
-        </p>
+        <div className="top-actions">
+          <div className="progress-wrap" aria-label="پیشرفت برنامه">
+            <span>
+              {doneCount} از {totalBlocks}
+            </span>
+            <div className="progress-track">
+              <div className="progress-fill" style={{ width: `${progress}%` }} />
+            </div>
+          </div>
+          <button type="button" className="ghost" onClick={resetGroup}>
+            عوض کردن گروه
+          </button>
+        </div>
       </header>
 
       <section className="intro">
@@ -140,20 +150,20 @@ export default function App() {
         <p className="percent-tip">{groupAIntro.percentTip}</p>
       </section>
 
-      <section className="timeline-strip" aria-label="تقویم فرجه">
-        <div>
+      <section className="route" aria-label="تقویم فرجه">
+        <div className="route-item">
           <span>۱۰ مرداد</span>
           <strong>پایان شیمی</strong>
         </div>
-        <div>
+        <div className="route-item is-now">
           <span>۱۱ تا ۱۶</span>
           <strong>فرجه ریاضی + تست</strong>
         </div>
-        <div>
+        <div className="route-item">
           <span>۱۷ مرداد</span>
           <strong>نهایی ریاضی</strong>
         </div>
-        <div>
+        <div className="route-item">
           <span>۳۰ مرداد</span>
           <strong>کنکور</strong>
         </div>
@@ -182,10 +192,7 @@ export default function App() {
                       className="linkish"
                       onClick={() => {
                         setActiveDay(day.id)
-                        document.getElementById(`day-${day.id}`)?.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'start',
-                        })
+                        scrollToDay(day.id)
                       }}
                     >
                       {day.dayName}
@@ -208,10 +215,7 @@ export default function App() {
             className={activeDay === day.id ? 'active' : ''}
             onClick={() => {
               setActiveDay(day.id)
-              document.getElementById(`day-${day.id}`)?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-              })
+              scrollToDay(day.id)
             }}
           >
             {day.shortLabel}
@@ -225,13 +229,14 @@ export default function App() {
           <p>برای هر روز جزئیات کامل اومده؛ تیک بزن که جا نمونی.</p>
         </div>
 
-        {days.map((day) => (
+        {days.map((day, dayIndex) => (
           <article
             key={day.id}
             id={`day-${day.id}`}
             className={`day-panel ${activeDay === day.id ? 'is-active' : ''}`}
           >
             <header className="day-head">
+              <span className="day-index">{String(dayIndex + 1).padStart(2, '0')}</span>
               <div>
                 <p className="day-date">
                   {day.dayName} · {day.dateLabel}
