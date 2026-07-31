@@ -259,7 +259,7 @@ export default function App() {
       </section>
 
       <footer className="foot">
-        گروه {selected.dayName} رو داری می‌بینی؟ برو از جدول بالا یا دکمه‌های روز جابه‌جا شو.
+        روز {selected.dayName} رو داری می‌بینی؟ از جدول بالا یا دکمه‌های روز جابه‌جا شو.
       </footer>
     </div>
   )
