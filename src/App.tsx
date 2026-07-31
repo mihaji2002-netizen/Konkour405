@@ -1,16 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Logo } from './components/Logo'
-import { days, groupAIntro } from './data/groupA'
+import { groupADays, groupAIntro } from './data/groupA'
+import { groupBDays, groupBIntro } from './data/groupB'
+import type { DayPlan, GroupIntro } from './data/types'
 import './App.css'
 
 type Group = 'A' | 'B' | null
 
-const STORAGE_KEY = 'konkur1405-done'
 const GROUP_KEY = 'konkur1405-group'
 
-function loadDone(): Record<string, boolean> {
+function doneKey(group: 'A' | 'B') {
+  return `konkur1405-done-${group}`
+}
+
+function loadDone(group: 'A' | 'B'): Record<string, boolean> {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
+    return JSON.parse(localStorage.getItem(doneKey(group)) || '{}')
   } catch {
     return {}
   }
@@ -23,97 +28,36 @@ function scrollToDay(id: string) {
   })
 }
 
-export default function App() {
-  const [group, setGroup] = useState<Group>(() => {
-    const saved = localStorage.getItem(GROUP_KEY)
-    return saved === 'A' || saved === 'B' ? saved : null
-  })
-  const [done, setDone] = useState<Record<string, boolean>>(loadDone)
+function PlanView({
+  group,
+  intro,
+  days,
+  onReset,
+}: {
+  group: 'A' | 'B'
+  intro: GroupIntro
+  days: DayPlan[]
+  onReset: () => void
+}) {
+  const [done, setDone] = useState<Record<string, boolean>>(() => loadDone(group))
   const [activeDay, setActiveDay] = useState(days[0].id)
 
   useEffect(() => {
-    if (group) localStorage.setItem(GROUP_KEY, group)
-  }, [group])
+    setDone(loadDone(group))
+    setActiveDay(days[0].id)
+  }, [group, days])
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(done))
-  }, [done])
+    localStorage.setItem(doneKey(group), JSON.stringify(done))
+  }, [done, group])
+
+  const totalBlocks = useMemo(() => days.reduce((n, d) => n + d.blocks.length, 0), [days])
+  const doneCount = Object.values(done).filter(Boolean).length
+  const progress = totalBlocks ? Math.round((doneCount / totalBlocks) * 100) : 0
 
   function toggleBlock(key: string) {
     setDone((prev) => ({ ...prev, [key]: !prev[key] }))
   }
-
-  function resetGroup() {
-    setGroup(null)
-    localStorage.removeItem(GROUP_KEY)
-  }
-
-  if (!group) {
-    return (
-      <div className="landing">
-        <section className="hero-bleed">
-          <div className="hero-mesh" aria-hidden="true" />
-          <div className="hero-core">
-            <Logo size="hero" />
-            <p className="brand">فرجه ۱۴۰۵</p>
-            <p className="hero-lead">
-              شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ مرداده، کنکور ۳۰ مرداد. از این فرجه هم نهایی رو جمع
-              می‌کنیم هم تست می‌زنیم — اول بگو جزو کدوم گروهی.
-            </p>
-
-            <div className="group-pick" aria-label="انتخاب گروه">
-              <button type="button" className="group-btn group-a" onClick={() => setGroup('A')}>
-                <span className="group-tag">گروه A</span>
-                <strong>پایه رو برای کنکور خوندم</strong>
-                <p>الان نیاز به مرور دارم برای زنده کردن توانایی‌هام توی پایه دهم و یازدهم.</p>
-              </button>
-
-              <button type="button" className="group-btn group-b" onClick={() => setGroup('B')}>
-                <span className="group-tag">گروه B</span>
-                <strong>پایه رو خوب نخوندم</strong>
-                <p>سرمایه‌گذاری‌م روی دوازدهم بوده برای درصد گرفتن از کنکور.</p>
-              </button>
-            </div>
-          </div>
-        </section>
-      </div>
-    )
-  }
-
-  if (group === 'B') {
-    return (
-      <div className="shell">
-        <header className="topbar">
-          <div className="brand-lockup">
-            <Logo size="nav" />
-            <div>
-              <p className="brand-kicker">pepsino LAB</p>
-              <p className="brand small">فرجه ۱۴۰۵</p>
-            </div>
-          </div>
-          <button type="button" className="ghost" onClick={resetGroup}>
-            عوض کردن گروه
-          </button>
-        </header>
-        <section className="coming">
-          <Logo size="hero" />
-          <p className="brand">گروه B</p>
-          <h1>برنامه‌ت به زودی می‌آد</h1>
-          <p>
-            گروه B برای بچه‌هایی‌ست که پایه رو خوب نخوندن و سرمایه‌گذاری‌شون روی دوازدهم بوده. جزئیات
-            برنامه‌شون هنوز اضافه نشده؛ فعلا گروه A آماده‌ست.
-          </p>
-          <button type="button" className="primary" onClick={resetGroup}>
-            برگشت به انتخاب گروه
-          </button>
-        </section>
-      </div>
-    )
-  }
-
-  const totalBlocks = days.reduce((n, d) => n + d.blocks.length, 0)
-  const doneCount = Object.values(done).filter(Boolean).length
-  const progress = totalBlocks ? Math.round((doneCount / totalBlocks) * 100) : 0
 
   return (
     <div className="shell plan">
@@ -134,20 +78,20 @@ export default function App() {
               <div className="progress-fill" style={{ width: `${progress}%` }} />
             </div>
           </div>
-          <button type="button" className="ghost" onClick={resetGroup}>
+          <button type="button" className="ghost" onClick={onReset}>
             عوض کردن گروه
           </button>
         </div>
       </header>
 
       <section className="intro">
-        <p className="eyebrow">گروه A</p>
-        <h1>{groupAIntro.title}</h1>
-        <p>{groupAIntro.lead}</p>
-        <p>{groupAIntro.how}</p>
-        <p className="why">{groupAIntro.whyGozine2}</p>
-        <p className="soft-note">{groupAIntro.timeNote}</p>
-        <p className="percent-tip">{groupAIntro.percentTip}</p>
+        <p className="eyebrow">گروه {group}</p>
+        <h1>{intro.title}</h1>
+        <p>{intro.lead}</p>
+        <p>{intro.how}</p>
+        <p className="why">{intro.whyGozine2}</p>
+        <p className="soft-note">{intro.timeNote}</p>
+        <p className="percent-tip">{intro.percentTip}</p>
       </section>
 
       <section className="route" aria-label="تقویم فرجه">
@@ -276,8 +220,64 @@ export default function App() {
 
       <footer className="foot">
         <Logo size="nav" />
-        <span>pepsino LAB · فرجه ۱۴۰۵</span>
+        <span>pepsino LAB · فرجه ۱۴۰۵ · گروه {group}</span>
       </footer>
     </div>
   )
+}
+
+export default function App() {
+  const [group, setGroup] = useState<Group>(() => {
+    const saved = localStorage.getItem(GROUP_KEY)
+    return saved === 'A' || saved === 'B' ? saved : null
+  })
+
+  useEffect(() => {
+    if (group) localStorage.setItem(GROUP_KEY, group)
+  }, [group])
+
+  function resetGroup() {
+    setGroup(null)
+    localStorage.removeItem(GROUP_KEY)
+  }
+
+  if (!group) {
+    return (
+      <div className="landing">
+        <section className="hero-bleed">
+          <div className="hero-mesh" aria-hidden="true" />
+          <div className="hero-core">
+            <Logo size="hero" />
+            <p className="brand">فرجه ۱۴۰۵</p>
+            <p className="hero-lead">
+              شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ مرداده، کنکور ۳۰ مرداد. از این فرجه هم نهایی رو جمع
+              می‌کنیم هم تست می‌زنیم — اول بگو جزو کدوم گروهی.
+            </p>
+
+            <div className="group-pick" aria-label="انتخاب گروه">
+              <button type="button" className="group-btn group-a" onClick={() => setGroup('A')}>
+                <span className="group-tag">گروه A</span>
+                <strong>پایه رو برای کنکور خوندم</strong>
+                <p>الان نیاز به مرور دارم برای زنده کردن توانایی‌هام توی پایه دهم و یازدهم.</p>
+              </button>
+
+              <button type="button" className="group-btn group-b" onClick={() => setGroup('B')}>
+                <span className="group-tag">گروه B</span>
+                <strong>پایه رو خوب نخوندم</strong>
+                <p>سرمایه‌گذاری‌م روی دوازدهم بوده برای درصد گرفتن از کنکور.</p>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    )
+  }
+
+  if (group === 'A') {
+    return (
+      <PlanView group="A" intro={groupAIntro} days={groupADays} onReset={resetGroup} />
+    )
+  }
+
+  return <PlanView group="B" intro={groupBIntro} days={groupBDays} onReset={resetGroup} />
 }
