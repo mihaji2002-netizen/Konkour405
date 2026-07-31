@@ -1,0 +1,266 @@
+import { useEffect, useState } from 'react'
+import { days, groupAIntro } from './data/groupA'
+import './App.css'
+
+type Group = 'A' | 'B' | null
+
+const STORAGE_KEY = 'konkur1405-done'
+const GROUP_KEY = 'konkur1405-group'
+
+function loadDone(): Record<string, boolean> {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
+  } catch {
+    return {}
+  }
+}
+
+export default function App() {
+  const [group, setGroup] = useState<Group>(() => {
+    const saved = localStorage.getItem(GROUP_KEY)
+    return saved === 'A' || saved === 'B' ? saved : null
+  })
+  const [done, setDone] = useState<Record<string, boolean>>(loadDone)
+  const [activeDay, setActiveDay] = useState(days[0].id)
+
+  useEffect(() => {
+    if (group) localStorage.setItem(GROUP_KEY, group)
+  }, [group])
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(done))
+  }, [done])
+
+  function toggleBlock(key: string) {
+    setDone((prev) => ({ ...prev, [key]: !prev[key] }))
+  }
+
+  function resetGroup() {
+    setGroup(null)
+    localStorage.removeItem(GROUP_KEY)
+  }
+
+  if (!group) {
+    return (
+      <div className="page">
+        <div className="atmosphere" aria-hidden="true" />
+        <header className="hero">
+          <p className="brand">فرجه ۱۴۰۵</p>
+          <h1>برنامه آماده‌سازی کنکور</h1>
+          <p className="hero-lead">
+            شیمی‌تون ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ مرداده، کنکور ۳۰ مرداد.
+            از این فرجه باید هم نهایی رو جمع کنیم هم تست بزنیم. اول بگو جزو کدوم گروهی.
+          </p>
+        </header>
+
+        <section className="group-pick" aria-label="انتخاب گروه">
+          <button type="button" className="group-btn group-a" onClick={() => setGroup('A')}>
+            <span className="group-tag">گروه A</span>
+            <strong>پایه رو برای کنکور خوندم</strong>
+            <p>
+              الان نیاز به مرور دارم برای زنده کردن توانایی‌هام توی پایه دهم و یازدهم.
+            </p>
+          </button>
+
+          <button type="button" className="group-btn group-b" onClick={() => setGroup('B')}>
+            <span className="group-tag">گروه B</span>
+            <strong>پایه رو خوب نخوندم</strong>
+            <p>
+              سرمایه‌گذاری‌م روی دوازدهم بوده برای درصد گرفتن از کنکور.
+            </p>
+          </button>
+        </section>
+
+        <footer className="foot">کنکور ۱۴۰۵ · برنامه‌ریزی فرجه ریاضی</footer>
+      </div>
+    )
+  }
+
+  if (group === 'B') {
+    return (
+      <div className="page">
+        <div className="atmosphere" aria-hidden="true" />
+        <header className="topbar">
+          <button type="button" className="ghost" onClick={resetGroup}>
+            عوض کردن گروه
+          </button>
+          <p className="brand small">فرجه ۱۴۰۵</p>
+        </header>
+        <section className="coming">
+          <p className="brand">گروه B</p>
+          <h1>برنامه‌ت به زودی می‌آد</h1>
+          <p>
+            گروه B برای بچه‌هایی‌ست که پایه رو خوب نخوندن و سرمایه‌گذاری‌شون روی دوازدهم بوده.
+            جزئیات برنامه‌شون هنوز اضافه نشده؛ فعلا گروه A آماده‌ست.
+          </p>
+          <button type="button" className="primary" onClick={resetGroup}>
+            برگشت به انتخاب گروه
+          </button>
+        </section>
+      </div>
+    )
+  }
+
+  const selected = days.find((d) => d.id === activeDay) ?? days[0]
+  const totalBlocks = days.reduce((n, d) => n + d.blocks.length, 0)
+  const doneCount = Object.values(done).filter(Boolean).length
+
+  return (
+    <div className="page plan">
+      <div className="atmosphere" aria-hidden="true" />
+
+      <header className="topbar">
+        <button type="button" className="ghost" onClick={resetGroup}>
+          عوض کردن گروه
+        </button>
+        <p className="brand small">فرجه ۱۴۰۵</p>
+        <p className="progress">
+          {doneCount} از {totalBlocks} انجام شد
+        </p>
+      </header>
+
+      <section className="intro">
+        <p className="eyebrow">گروه A</p>
+        <h1>{groupAIntro.title}</h1>
+        <p>{groupAIntro.lead}</p>
+        <p>{groupAIntro.how}</p>
+        <p className="why">{groupAIntro.whyGozine2}</p>
+        <p className="soft-note">{groupAIntro.timeNote}</p>
+        <p className="percent-tip">{groupAIntro.percentTip}</p>
+      </section>
+
+      <section className="timeline-strip" aria-label="تقویم فرجه">
+        <div>
+          <span>۱۰ مرداد</span>
+          <strong>پایان شیمی</strong>
+        </div>
+        <div>
+          <span>۱۱ تا ۱۶</span>
+          <strong>فرجه ریاضی + تست</strong>
+        </div>
+        <div>
+          <span>۱۷ مرداد</span>
+          <strong>نهایی ریاضی</strong>
+        </div>
+        <div>
+          <span>۳۰ مرداد</span>
+          <strong>کنکور</strong>
+        </div>
+      </section>
+
+      <section className="table-wrap" id="overview">
+        <div className="section-head">
+          <h2>کل برنامه در یک نگاه</h2>
+          <p>اول کل مسیر رو ببین، بعد برو سراغ جزئیات هر روز.</p>
+        </div>
+        <div className="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>روز</th>
+                <th>تاریخ</th>
+                <th>خلاصه کار</th>
+              </tr>
+            </thead>
+            <tbody>
+              {days.map((day) => (
+                <tr key={day.id}>
+                  <td>
+                    <button
+                      type="button"
+                      className="linkish"
+                      onClick={() => {
+                        setActiveDay(day.id)
+                        document.getElementById(`day-${day.id}`)?.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'start',
+                        })
+                      }}
+                    >
+                      {day.dayName}
+                    </button>
+                  </td>
+                  <td>{day.dateLabel}</td>
+                  <td>{day.tableSummary}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <nav className="day-nav" aria-label="روزهای برنامه">
+        {days.map((day) => (
+          <button
+            key={day.id}
+            type="button"
+            className={activeDay === day.id ? 'active' : ''}
+            onClick={() => {
+              setActiveDay(day.id)
+              document.getElementById(`day-${day.id}`)?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              })
+            }}
+          >
+            {day.shortLabel}
+          </button>
+        ))}
+      </nav>
+
+      <section className="days">
+        <div className="section-head">
+          <h2>اجرای روزبه‌روز</h2>
+          <p>برای هر روز جزئیات کامل اومده؛ تیک بزن که جا نمونی.</p>
+        </div>
+
+        {days.map((day) => (
+          <article
+            key={day.id}
+            id={`day-${day.id}`}
+            className={`day-panel ${activeDay === day.id ? 'is-active' : ''}`}
+          >
+            <header className="day-head">
+              <div>
+                <p className="day-date">
+                  {day.dayName} · {day.dateLabel}
+                </p>
+                <h3>{day.tableSummary}</h3>
+              </div>
+            </header>
+
+            {day.note && <p className="soft-note">{day.note}</p>}
+            {day.tip && <p className="day-tip">{day.tip}</p>}
+
+            <ol className="blocks">
+              {day.blocks.map((block, index) => {
+                const key = `${day.id}-${index}`
+                const checked = Boolean(done[key])
+                return (
+                  <li key={key} className={checked ? 'done' : ''}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => toggleBlock(key)}
+                      />
+                      <span className="block-body">
+                        <span className="block-time">{block.time}</span>
+                        <span className="block-title">{block.title}</span>
+                        {block.detail && <span className="block-detail">{block.detail}</span>}
+                      </span>
+                    </label>
+                  </li>
+                )
+              })}
+            </ol>
+          </article>
+        ))}
+      </section>
+
+      <footer className="foot">
+        گروه {selected.dayName} رو داری می‌بینی؟ برو از جدول بالا یا دکمه‌های روز جابه‌جا شو.
+      </footer>
+    </div>
+  )
+}
