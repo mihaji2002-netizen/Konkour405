@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Logo } from './components/Logo'
+import { TelegramLink } from './components/TelegramLink'
 import { groupADays, groupAIntro } from './data/groupA'
 import { groupBDays, groupBIntro } from './data/groupB'
 import type { DayPlan, GroupIntro } from './data/types'
@@ -62,6 +63,7 @@ function PlanView({
   return (
     <div className="shell plan">
       <header className="topbar">
+        <div className="topbar-glow" aria-hidden="true" />
         <div className="brand-lockup">
           <Logo size="nav" />
           <div>
@@ -85,9 +87,12 @@ function PlanView({
                 <div className="progress-fill" style={{ width: `${progress}%` }} />
               </div>
             </div>
-            <button type="button" className="ghost" onClick={onReset}>
-              عوض کردن گروه
-            </button>
+            <div className="top-btns">
+              <TelegramLink variant="chip" />
+              <button type="button" className="ghost" onClick={onReset}>
+                عوض کردن گروه
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -229,6 +234,7 @@ function PlanView({
       <footer className="foot">
         <Logo size="nav" />
         <span>pepsino LAB · فرجه ۱۴۰۵ · گروه {group}</span>
+        <TelegramLink variant="chip" />
       </footer>
     </div>
   )
@@ -255,16 +261,21 @@ export default function App() {
         <section className="hero-bleed">
           <div className="hero-mesh" aria-hidden="true" />
           <div className="hero-core">
+            <div className="hero-topbar">
+              <span className="hero-top-brand">pepsino LAB</span>
+              <TelegramLink variant="hero" />
+            </div>
             <div className="hero-main">
               <div className="hero-brand-row">
                 <Logo size="hero" />
                 <div className="hero-brand-copy">
-                  <p className="brand-kicker light">pepsino LAB · GET ACTIVE TO GROW</p>
+                  <p className="brand-kicker light">GET ACTIVE TO GROW</p>
                   <p className="brand">فرجه ۱۴۰۵</p>
                   <p className="hero-lead">
                     شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ و زیست ۲۰ مرداده، کنکور ۳۰ مرداد. برنامه از
                     فرجه ریاضی تا خود کنکور آماده‌ست — اول بگو جزو کدوم گروهی.
                   </p>
+                  <TelegramLink variant="hero" />
                 </div>
               </div>
 
