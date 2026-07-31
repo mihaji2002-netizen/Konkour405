@@ -70,7 +70,7 @@ function PlanView({
           <Logo size="nav" />
           <div>
             <p className="brand-kicker">pepsino LAB · گروه {group}</p>
-            <p className="brand small">فرجه ۱۴۰۵</p>
+            <p className="brand small">برنامه جمع‌بندی کنکور ۱۴۰۵</p>
           </div>
         </div>
         <div className="top-meta">
@@ -270,7 +270,7 @@ function PlanView({
 
       <footer className="foot">
         <Logo size="nav" />
-        <span>pepsino LAB · فرجه ۱۴۰۵ · گروه {group}</span>
+        <span>pepsino LAB · برنامه جمع‌بندی کنکور ۱۴۰۵ · گروه {group}</span>
         <Signature tone="dark" />
         <TelegramLink variant="chip" />
       </footer>
@@ -308,7 +308,7 @@ export default function App() {
                 <Logo size="hero" />
                 <div className="hero-brand-copy">
                   <p className="brand-kicker light">GET ACTIVE TO GROW</p>
-                  <p className="brand">فرجه ۱۴۰۵</p>
+                  <p className="brand">برنامه جمع‌بندی کنکور ۱۴۰۵</p>
                   <p className="hero-lead">
                     شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ و زیست ۲۰ مرداده، کنکور ۳۰ مرداد. برنامه از
                     فرجه ریاضی تا خود کنکور آماده‌ست — اول بگو جزو کدوم گروهی.
