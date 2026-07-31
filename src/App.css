@@ -143,11 +143,6 @@
   border-radius: 8px;
 }
 
-.hero-dates > div.is-hot {
-  background: rgba(200, 240, 49, 0.14);
-  border-color: var(--lime);
-}
-
 .hero-dates span {
   display: block;
   font-size: 0.75rem;
@@ -377,11 +372,6 @@
   text-overflow: ellipsis;
 }
 
-.top-dates span.hot {
-  background: var(--lime);
-  color: var(--lime-ink);
-}
-
 .top-actions {
   display: flex;
   align-items: center;
@@ -547,13 +537,6 @@
   background: var(--paper-2);
   border-radius: 6px;
   border-top: 3px solid transparent;
-}
-
-.route-item.is-now {
-  background: var(--forest);
-  color: #f4fff7;
-  border-top-color: var(--lime);
-  animation: pulse-soft 2.8s ease-in-out infinite;
 }
 
 .route-item span {

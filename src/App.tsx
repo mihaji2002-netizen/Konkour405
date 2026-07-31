@@ -73,7 +73,7 @@ function PlanView({
           <div className="top-dates" aria-hidden="true">
             <span>۱۱–۱۶ ریاضی</span>
             <span>۱۷و۲۰ نهایی</span>
-            <span className="hot">۲۱–۲۹ جامع</span>
+            <span>۲۱–۲۹ جامع</span>
             <span>۳۰ کنکور</span>
           </div>
           <div className="top-actions">
@@ -111,7 +111,7 @@ function PlanView({
           <span>۱۷ و ۲۰</span>
           <strong>نهایی ریاضی و زیست</strong>
         </div>
-        <div className="route-item is-now">
+        <div className="route-item">
           <span>۲۱ تا ۲۹</span>
           <strong>جامع و تورق</strong>
         </div>
@@ -292,7 +292,7 @@ export default function App() {
                 <span>۱۷ و ۲۰</span>
                 <strong>نهایی ریاضی و زیست</strong>
               </div>
-              <div className="is-hot">
+              <div>
                 <span>۲۱ تا ۲۹</span>
                 <strong>جامع و تورق کنکور</strong>
               </div>
