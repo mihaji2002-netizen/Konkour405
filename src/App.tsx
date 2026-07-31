@@ -71,9 +71,9 @@ function PlanView({
         </div>
         <div className="top-meta">
           <div className="top-dates" aria-hidden="true">
-            <span>۱۰ شیمی</span>
-            <span className="hot">۱۱–۱۶ فرجه</span>
-            <span>۱۷ ریاضی</span>
+            <span>۱۱–۱۶ ریاضی</span>
+            <span>۱۷و۲۰ نهایی</span>
+            <span className="hot">۲۱–۲۹ جامع</span>
             <span>۳۰ کنکور</span>
           </div>
           <div className="top-actions">
@@ -104,20 +104,20 @@ function PlanView({
 
       <section className="route" aria-label="تقویم فرجه">
         <div className="route-item">
-          <span>۱۰ مرداد</span>
-          <strong>پایان شیمی</strong>
-        </div>
-        <div className="route-item is-now">
           <span>۱۱ تا ۱۶</span>
           <strong>فرجه ریاضی + تست</strong>
         </div>
         <div className="route-item">
-          <span>۱۷ مرداد</span>
-          <strong>نهایی ریاضی</strong>
+          <span>۱۷ و ۲۰</span>
+          <strong>نهایی ریاضی و زیست</strong>
+        </div>
+        <div className="route-item is-now">
+          <span>۲۱ تا ۲۹</span>
+          <strong>جامع و تورق</strong>
         </div>
         <div className="route-item">
           <span>۳۰ مرداد</span>
-          <strong>کنکور</strong>
+          <strong>کنکور ۱۴۰۵</strong>
         </div>
       </section>
 
@@ -262,8 +262,8 @@ export default function App() {
                   <p className="brand-kicker light">pepsino LAB · GET ACTIVE TO GROW</p>
                   <p className="brand">فرجه ۱۴۰۵</p>
                   <p className="hero-lead">
-                    شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ مرداده، کنکور ۳۰ مرداد. از این فرجه هم نهایی
-                    رو جمع می‌کنیم هم تست می‌زنیم — اول بگو جزو کدوم گروهی.
+                    شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ و زیست ۲۰ مرداده، کنکور ۳۰ مرداد. برنامه از
+                    فرجه ریاضی تا خود کنکور آماده‌ست — اول بگو جزو کدوم گروهی.
                   </p>
                 </div>
               </div>
@@ -285,20 +285,20 @@ export default function App() {
 
             <div className="hero-dates" aria-label="تقویم فرجه">
               <div>
-                <span>۱۰ مرداد</span>
-                <strong>پایان شیمی</strong>
-              </div>
-              <div className="is-hot">
                 <span>۱۱ تا ۱۶</span>
                 <strong>فرجه ریاضی + تست</strong>
               </div>
               <div>
-                <span>۱۷ مرداد</span>
-                <strong>نهایی ریاضی</strong>
+                <span>۱۷ و ۲۰</span>
+                <strong>نهایی ریاضی و زیست</strong>
+              </div>
+              <div className="is-hot">
+                <span>۲۱ تا ۲۹</span>
+                <strong>جامع و تورق کنکور</strong>
               </div>
               <div>
                 <span>۳۰ مرداد</span>
-                <strong>کنکور</strong>
+                <strong>کنکور ۱۴۰۵</strong>
               </div>
             </div>
           </div>

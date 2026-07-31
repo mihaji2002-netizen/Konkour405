@@ -643,13 +643,14 @@ tbody tr:hover td {
   background: transparent;
   color: var(--muted);
   border-radius: 0;
-  padding: 0.85rem 1rem;
+  padding: 0.75rem 0.7rem;
   font: inherit;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   border-bottom: 3px solid transparent;
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  min-width: 2.6rem;
 }
 
 .day-nav button.active,
