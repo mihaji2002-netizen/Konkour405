@@ -57,17 +57,35 @@
 .hero-core {
   position: relative;
   z-index: 1;
-  width: min(1040px, 100%);
+  width: min(1120px, 100%);
   margin-inline: auto;
   display: grid;
-  gap: clamp(1rem, 2.5vw, 1.4rem);
+  gap: clamp(0.9rem, 2vw, 1.25rem);
   animation: rise 0.65s ease both;
+}
+
+.hero-main {
+  display: grid;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+@media (min-width: 860px) {
+  .hero-main {
+    grid-template-columns: 1.15fr 0.95fr;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .group-pick {
+    grid-template-columns: 1fr;
+  }
 }
 
 .hero-brand-row {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: clamp(1rem, 3vw, 1.75rem);
+  gap: clamp(0.9rem, 2.5vw, 1.5rem);
   align-items: center;
 }
 
@@ -148,9 +166,9 @@
   animation: rise 0.7s ease 0.12s both;
 }
 
-@media (min-width: 760px) {
+@media (max-width: 859px) {
   .group-pick {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -289,11 +307,10 @@
 }
 
 .topbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.85rem;
-  flex-wrap: wrap;
+  gap: 0.85rem 1.25rem;
   padding: 0.75rem 0.9rem;
   margin: 0 0 1rem;
   position: sticky;
@@ -336,26 +353,28 @@
 .top-meta {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: stretch;
   gap: 0.45rem;
-  flex: 1;
-  min-width: min(100%, 280px);
+  min-width: 0;
 }
 
 .top-dates {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.35rem;
 }
 
 .top-dates span {
   font-size: 0.72rem;
   font-weight: 700;
-  padding: 0.25rem 0.45rem;
+  padding: 0.35rem 0.4rem;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.08);
   color: rgba(244, 255, 247, 0.85);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .top-dates span.hot {
@@ -366,7 +385,18 @@
 .top-actions {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.7rem;
+}
+
+@media (max-width: 720px) {
+  .topbar {
+    grid-template-columns: 1fr;
+  }
+
+  .top-dates {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .progress-wrap {

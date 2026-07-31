@@ -255,15 +255,31 @@ export default function App() {
         <section className="hero-bleed">
           <div className="hero-mesh" aria-hidden="true" />
           <div className="hero-core">
-            <div className="hero-brand-row">
-              <Logo size="hero" />
-              <div className="hero-brand-copy">
-                <p className="brand-kicker light">pepsino LAB · GET ACTIVE TO GROW</p>
-                <p className="brand">فرجه ۱۴۰۵</p>
-                <p className="hero-lead">
-                  شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ مرداده، کنکور ۳۰ مرداد. از این فرجه هم نهایی رو
-                  جمع می‌کنیم هم تست می‌زنیم — اول بگو جزو کدوم گروهی.
-                </p>
+            <div className="hero-main">
+              <div className="hero-brand-row">
+                <Logo size="hero" />
+                <div className="hero-brand-copy">
+                  <p className="brand-kicker light">pepsino LAB · GET ACTIVE TO GROW</p>
+                  <p className="brand">فرجه ۱۴۰۵</p>
+                  <p className="hero-lead">
+                    شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ مرداده، کنکور ۳۰ مرداد. از این فرجه هم نهایی
+                    رو جمع می‌کنیم هم تست می‌زنیم — اول بگو جزو کدوم گروهی.
+                  </p>
+                </div>
+              </div>
+
+              <div className="group-pick" aria-label="انتخاب گروه">
+                <button type="button" className="group-btn group-a" onClick={() => setGroup('A')}>
+                  <span className="group-tag">گروه A</span>
+                  <strong>پایه رو برای کنکور خوندم</strong>
+                  <p>الان نیاز به مرور دارم برای زنده کردن توانایی‌هام توی پایه دهم و یازدهم.</p>
+                </button>
+
+                <button type="button" className="group-btn group-b" onClick={() => setGroup('B')}>
+                  <span className="group-tag">گروه B</span>
+                  <strong>پایه رو خوب نخوندم</strong>
+                  <p>سرمایه‌گذاری‌م روی دوازدهم بوده برای درصد گرفتن از کنکور.</p>
+                </button>
               </div>
             </div>
 
@@ -284,20 +300,6 @@ export default function App() {
                 <span>۳۰ مرداد</span>
                 <strong>کنکور</strong>
               </div>
-            </div>
-
-            <div className="group-pick" aria-label="انتخاب گروه">
-              <button type="button" className="group-btn group-a" onClick={() => setGroup('A')}>
-                <span className="group-tag">گروه A</span>
-                <strong>پایه رو برای کنکور خوندم</strong>
-                <p>الان نیاز به مرور دارم برای زنده کردن توانایی‌هام توی پایه دهم و یازدهم.</p>
-              </button>
-
-              <button type="button" className="group-btn group-b" onClick={() => setGroup('B')}>
-                <span className="group-tag">گروه B</span>
-                <strong>پایه رو خوب نخوندم</strong>
-                <p>سرمایه‌گذاری‌م روی دوازدهم بوده برای درصد گرفتن از کنکور.</p>
-              </button>
             </div>
           </div>
         </section>
