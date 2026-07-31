@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Logo } from './components/Logo'
 import { Signature } from './components/Signature'
 import { TelegramLink } from './components/TelegramLink'
+import { withHearts } from './components/withHearts'
 import { groupADays, groupAIntro } from './data/groupA'
 import { groupBDays, groupBIntro } from './data/groupB'
 import type { DayPlan, GroupIntro } from './data/types'
@@ -136,28 +137,32 @@ function PlanView({
           <table>
             <thead>
               <tr>
+                <th className="col-num">#</th>
                 <th>روز</th>
                 <th>تاریخ</th>
                 <th>خلاصه کار</th>
               </tr>
             </thead>
             <tbody>
-              {days.map((day) => (
-                <tr key={day.id}>
-                  <td>
-                    <button
-                      type="button"
-                      className="linkish"
-                      onClick={() => {
-                        setActiveDay(day.id)
-                        scrollToDay(day.id)
-                      }}
-                    >
+              {days.map((day, index) => (
+                <tr
+                  key={day.id}
+                  className={day.id === '30' ? 'row-finale' : undefined}
+                  onClick={() => {
+                    setActiveDay(day.id)
+                    scrollToDay(day.id)
+                  }}
+                >
+                  <td className="col-num">
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                  </td>
+                  <td className="col-day">
+                    <button type="button" className="linkish">
                       {day.dayName}
                     </button>
                   </td>
-                  <td>{day.dateLabel}</td>
-                  <td>{day.tableSummary}</td>
+                  <td className="col-date">{day.dateLabel}</td>
+                  <td className="col-summary">{day.tableSummary}</td>
                 </tr>
               ))}
             </tbody>
@@ -187,49 +192,80 @@ function PlanView({
           <p>برای هر روز جزئیات کامل اومده؛ تیک بزن که جا نمونی.</p>
         </div>
 
-        {days.map((day, dayIndex) => (
-          <article
-            key={day.id}
-            id={`day-${day.id}`}
-            className={`day-panel ${activeDay === day.id ? 'is-active' : ''}`}
-          >
-            <header className="day-head">
-              <span className="day-index">{String(dayIndex + 1).padStart(2, '0')}</span>
-              <div>
-                <p className="day-date">
-                  {day.dayName} · {day.dateLabel}
-                </p>
-                <h3>{day.tableSummary}</h3>
-              </div>
-            </header>
+        {days.map((day, dayIndex) => {
+          const isFinale = day.id === '30'
+          return (
+            <article
+              key={day.id}
+              id={`day-${day.id}`}
+              className={`day-panel ${activeDay === day.id ? 'is-active' : ''} ${isFinale ? 'is-finale' : ''}`}
+            >
+              <header className="day-head">
+                <span className="day-index">{String(dayIndex + 1).padStart(2, '0')}</span>
+                <div>
+                  <p className="day-date">
+                    {day.dayName} · {day.dateLabel}
+                  </p>
+                  <h3>{withHearts(day.tableSummary)}</h3>
+                </div>
+              </header>
 
-            {day.note && <p className="soft-note">{day.note}</p>}
-            {day.tip && <p className="day-tip">{day.tip}</p>}
+              {day.note && <p className="soft-note">{withHearts(day.note)}</p>}
+              {!isFinale && day.tip && <p className="day-tip">{withHearts(day.tip)}</p>}
 
-            <ol className="blocks">
-              {day.blocks.map((block, index) => {
-                const key = `${day.id}-${index}`
-                const checked = Boolean(done[key])
-                return (
-                  <li key={key} className={checked ? 'done' : ''}>
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={() => toggleBlock(key)}
-                      />
-                      <span className="block-body">
-                        <span className="block-time">{block.time}</span>
-                        <span className="block-title">{block.title}</span>
-                        {block.detail && <span className="block-detail">{block.detail}</span>}
-                      </span>
-                    </label>
-                  </li>
-                )
-              })}
-            </ol>
-          </article>
-        ))}
+              {isFinale ? (
+                <div className="finale-card">
+                  <p className="finale-kicker">۳۰ مرداد · روز موعود</p>
+                  {day.blocks.map((block, index) => {
+                    const key = `${day.id}-${index}`
+                    const checked = Boolean(done[key])
+                    return (
+                      <label key={key} className={`finale-main ${checked ? 'done' : ''}`}>
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={() => toggleBlock(key)}
+                        />
+                        <span>
+                          <strong className="finale-title">{withHearts(block.title)}</strong>
+                          {block.detail && (
+                            <span className="finale-letter">{withHearts(block.detail)}</span>
+                          )}
+                        </span>
+                      </label>
+                    )
+                  })}
+                  <Signature tone="light" />
+                </div>
+              ) : (
+                <ol className="blocks">
+                  {day.blocks.map((block, index) => {
+                    const key = `${day.id}-${index}`
+                    const checked = Boolean(done[key])
+                    return (
+                      <li key={key} className={checked ? 'done' : ''}>
+                        <label>
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() => toggleBlock(key)}
+                          />
+                          <span className="block-body">
+                            <span className="block-time">{block.time}</span>
+                            <span className="block-title">{withHearts(block.title)}</span>
+                            {block.detail && (
+                              <span className="block-detail">{withHearts(block.detail)}</span>
+                            )}
+                          </span>
+                        </label>
+                      </li>
+                    )
+                  })}
+                </ol>
+              )}
+            </article>
+          )
+        })}
       </section>
 
       <footer className="foot">

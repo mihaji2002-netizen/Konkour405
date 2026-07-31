@@ -712,35 +712,102 @@
   overflow-x: auto;
   border: 1px solid rgba(13, 59, 44, 0.12);
   background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(13, 59, 44, 0.06);
 }
 
 table {
   width: 100%;
-  border-collapse: collapse;
-  min-width: 520px;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 560px;
 }
 
 th,
 td {
-  padding: 0.9rem 1rem;
+  padding: 0.85rem 0.95rem;
   text-align: right;
   border-bottom: 1px solid rgba(13, 59, 44, 0.08);
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 th {
-  background: var(--forest);
+  background: linear-gradient(120deg, #0a3328, #0d3b2c 55%, #123f4a);
   color: var(--lime);
   font-size: 0.84rem;
   font-weight: 700;
+  position: sticky;
+  top: 0;
+}
+
+th:first-child {
+  border-radius: 0 13px 0 0;
+}
+
+th:last-child {
+  border-radius: 13px 0 0 0;
+}
+
+.col-num {
+  width: 3.2rem;
+  text-align: center;
+}
+
+.col-num span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 6px;
+  background: rgba(13, 59, 44, 0.08);
+  color: var(--forest);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+th.col-num {
+  color: rgba(200, 240, 49, 0.85);
+}
+
+.col-day {
+  white-space: nowrap;
+}
+
+.col-date {
+  white-space: nowrap;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.col-summary {
+  line-height: 1.65;
+}
+
+tbody tr {
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+tbody tr:nth-child(even) td {
+  background: rgba(231, 239, 227, 0.45);
+}
+
+tbody tr:hover td {
+  background: rgba(200, 240, 49, 0.14);
 }
 
 tbody tr:last-child td {
   border-bottom: none;
 }
 
-tbody tr:hover td {
-  background: rgba(200, 240, 49, 0.08);
+tbody tr.row-finale td {
+  background: linear-gradient(90deg, rgba(225, 29, 72, 0.08), rgba(200, 240, 49, 0.1));
+}
+
+tbody tr.row-finale .col-num span {
+  background: #e11d48;
+  color: #fff;
 }
 
 .day-nav {
@@ -832,6 +899,82 @@ tbody tr:hover td {
 
 .day-panel.is-active .day-index {
   box-shadow: inset 0 0 0 2px var(--lime);
+}
+
+.day-panel.is-finale {
+  padding: 0.25rem 0 0.5rem;
+}
+
+.day-panel.is-finale .day-index {
+  background: #e11d48;
+  color: #fff;
+}
+
+.day-panel.is-finale .day-date {
+  color: #be123c;
+}
+
+.finale-card {
+  margin-top: 0.75rem;
+  padding: clamp(1.25rem, 3vw, 1.8rem);
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse 70% 60% at 15% 20%, rgba(225, 29, 72, 0.22), transparent 55%),
+    radial-gradient(ellipse 55% 50% at 90% 80%, rgba(200, 240, 49, 0.14), transparent 50%),
+    linear-gradient(145deg, #07261c 0%, #0d3b2c 50%, #1a1630 100%);
+  color: #f7fff8;
+  border: 1px solid rgba(225, 29, 72, 0.35);
+  box-shadow: 0 14px 36px rgba(13, 59, 44, 0.16);
+  display: grid;
+  gap: 1rem;
+  animation: rise 0.55s ease both;
+}
+
+.finale-kicker {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: #fda4af;
+}
+
+.finale-main {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.finale-main input {
+  margin-top: 0.35rem;
+  accent-color: #e11d48;
+}
+
+.finale-main.done {
+  opacity: 0.55;
+}
+
+.finale-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  line-height: 1.4;
+  margin-bottom: 0.65rem;
+  color: #fff;
+}
+
+.finale-letter {
+  display: block;
+  font-size: 1.02rem;
+  line-height: 2;
+  color: rgba(247, 255, 248, 0.9);
+  border-right: 3px solid #e11d48;
+  padding-right: 0.9rem;
+}
+
+.finale-card .signature {
+  margin-top: 0.35rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .blocks {
@@ -1057,12 +1200,14 @@ tbody tr:hover td {
   font-weight: 400;
 }
 
-.signature-heart {
-  color: #e11d48;
+.signature-heart,
+.text-heart {
+  color: #e11d48 !important;
   display: inline-block;
-  margin-inline-start: 0.15em;
+  margin-inline: 0.08em;
   animation: heart-beat 1.4s ease-in-out infinite;
   font-style: normal;
+  font-family: var(--font-signature), serif;
 }
 
 .signature-light .signature-dedicate {
