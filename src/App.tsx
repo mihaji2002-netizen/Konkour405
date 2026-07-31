@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Logo } from './components/Logo'
 import { days, groupAIntro } from './data/groupA'
 import './App.css'
 
@@ -45,6 +46,7 @@ export default function App() {
       <div className="page">
         <div className="atmosphere" aria-hidden="true" />
         <header className="hero">
+          <Logo size="hero" />
           <p className="brand">فرجه ۱۴۰۵</p>
           <h1>برنامه آماده‌سازی کنکور</h1>
           <p className="hero-lead">
@@ -71,7 +73,10 @@ export default function App() {
           </button>
         </section>
 
-        <footer className="foot">کنکور ۱۴۰۵ · برنامه‌ریزی فرجه ریاضی</footer>
+        <footer className="foot">
+          <Logo size="nav" />
+          <span>pepsino LAB · کنکور ۱۴۰۵</span>
+        </footer>
       </div>
     )
   }
@@ -84,9 +89,13 @@ export default function App() {
           <button type="button" className="ghost" onClick={resetGroup}>
             عوض کردن گروه
           </button>
-          <p className="brand small">فرجه ۱۴۰۵</p>
+          <div className="brand-lockup">
+            <Logo size="nav" />
+            <p className="brand small">فرجه ۱۴۰۵</p>
+          </div>
         </header>
         <section className="coming">
+          <Logo size="hero" />
           <p className="brand">گروه B</p>
           <h1>برنامه‌ت به زودی می‌آد</h1>
           <p>
@@ -101,7 +110,6 @@ export default function App() {
     )
   }
 
-  const selected = days.find((d) => d.id === activeDay) ?? days[0]
   const totalBlocks = days.reduce((n, d) => n + d.blocks.length, 0)
   const doneCount = Object.values(done).filter(Boolean).length
 
@@ -113,7 +121,10 @@ export default function App() {
         <button type="button" className="ghost" onClick={resetGroup}>
           عوض کردن گروه
         </button>
-        <p className="brand small">فرجه ۱۴۰۵</p>
+        <div className="brand-lockup">
+          <Logo size="nav" />
+          <p className="brand small">فرجه ۱۴۰۵</p>
+        </div>
         <p className="progress">
           {doneCount} از {totalBlocks} انجام شد
         </p>
@@ -259,7 +270,8 @@ export default function App() {
       </section>
 
       <footer className="foot">
-        روز {selected.dayName} رو داری می‌بینی؟ از جدول بالا یا دکمه‌های روز جابه‌جا شو.
+        <Logo size="nav" />
+        <span>pepsino LAB · فرجه ۱۴۰۵</span>
       </footer>
     </div>
   )

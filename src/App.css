@@ -30,6 +30,32 @@
   background-size: 28px 28px, 36px 36px;
 }
 
+.logo {
+  display: block;
+  object-fit: contain;
+  border-radius: 50%;
+  box-shadow: 0 10px 28px rgba(15, 30, 28, 0.18);
+}
+
+.logo-hero {
+  width: clamp(140px, 28vw, 220px);
+  height: auto;
+  margin-bottom: 0.35rem;
+  animation: rise 0.7s ease both, logo-float 4.5s ease-in-out 0.7s infinite;
+}
+
+.logo-nav {
+  width: 42px;
+  height: 42px;
+  box-shadow: 0 4px 12px rgba(15, 30, 28, 0.16);
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
 .brand {
   font-family: var(--font-display);
   font-size: clamp(2.8rem, 9vw, 4.6rem);
@@ -43,14 +69,16 @@
 .brand.small {
   font-size: 1.35rem;
   line-height: 1;
+  animation: none;
 }
 
 .hero {
-  padding: clamp(2.5rem, 8vh, 5rem) 0 1.5rem;
-  min-height: min(72vh, 640px);
+  padding: clamp(2rem, 7vh, 4.5rem) 0 1.5rem;
+  min-height: min(74vh, 680px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: flex-start;
   gap: 0.85rem;
 }
 
@@ -478,6 +506,14 @@ tbody tr:hover td {
   color: var(--muted);
   font-size: 0.85rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.coming .logo-hero {
+  margin-inline: auto;
 }
 
 @keyframes rise {
@@ -488,6 +524,16 @@ tbody tr:hover td {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes logo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }
 
