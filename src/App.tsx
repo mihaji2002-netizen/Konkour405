@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Logo } from './components/Logo'
+import { Signature } from './components/Signature'
 import { TelegramLink } from './components/TelegramLink'
 import { groupADays, groupAIntro } from './data/groupA'
 import { groupBDays, groupBIntro } from './data/groupB'
@@ -234,6 +235,7 @@ function PlanView({
       <footer className="foot">
         <Logo size="nav" />
         <span>pepsino LAB · فرجه ۱۴۰۵ · گروه {group}</span>
+        <Signature tone="dark" />
         <TelegramLink variant="chip" />
       </footer>
     </div>
@@ -312,6 +314,8 @@ export default function App() {
                 <strong>کنکور ۱۴۰۵</strong>
               </div>
             </div>
+
+            <Signature tone="light" />
           </div>
         </section>
       </div>

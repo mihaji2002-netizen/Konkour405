@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@600;700;800&family=Great+Vibes&family=Vazirmatn:wght@400;500;600;700;800&display=swap');
 
 :root {
   --font-display: 'Baloo Bhaijaan 2', 'Vazirmatn', sans-serif;
   --font-body: 'Vazirmatn', sans-serif;
+  --font-signature: 'Great Vibes', cursive;
 
   --ink: #10251d;
   --ink-soft: #1f3d31;

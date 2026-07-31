@@ -1029,6 +1029,71 @@ tbody tr:hover td {
   }
 }
 
+/* Signature */
+.signature {
+  display: grid;
+  gap: 0.2rem;
+  justify-items: center;
+  text-align: center;
+  padding: 0.35rem 0 0.15rem;
+  animation: rise 0.7s ease 0.18s both;
+}
+
+.signature-dedicate {
+  margin: 0;
+  font-size: clamp(0.95rem, 2.2vw, 1.08rem);
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.signature-name {
+  margin: 0;
+  font-family: var(--font-signature);
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  transform: scaleX(1.18);
+  transform-origin: center;
+  font-weight: 400;
+}
+
+.signature-heart {
+  color: #e11d48;
+  display: inline-block;
+  margin-inline-start: 0.15em;
+  animation: heart-beat 1.4s ease-in-out infinite;
+  font-style: normal;
+}
+
+.signature-light .signature-dedicate {
+  color: rgba(236, 250, 238, 0.88);
+}
+
+.signature-light .signature-name {
+  color: #f8fff9;
+}
+
+.signature-dark .signature-dedicate {
+  color: var(--muted);
+}
+
+.signature-dark .signature-name {
+  color: var(--forest-deep);
+}
+
+@keyframes heart-beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.18);
+  }
+  55% {
+    transform: scale(1);
+  }
+}
+
 /* Telegram */
 .tg-link {
   display: inline-flex;
