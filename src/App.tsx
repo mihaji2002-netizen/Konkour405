@@ -65,22 +65,30 @@ function PlanView({
         <div className="brand-lockup">
           <Logo size="nav" />
           <div>
-            <p className="brand-kicker">pepsino LAB</p>
+            <p className="brand-kicker">pepsino LAB · گروه {group}</p>
             <p className="brand small">فرجه ۱۴۰۵</p>
           </div>
         </div>
-        <div className="top-actions">
-          <div className="progress-wrap" aria-label="پیشرفت برنامه">
-            <span>
-              {doneCount} از {totalBlocks}
-            </span>
-            <div className="progress-track">
-              <div className="progress-fill" style={{ width: `${progress}%` }} />
-            </div>
+        <div className="top-meta">
+          <div className="top-dates" aria-hidden="true">
+            <span>۱۰ شیمی</span>
+            <span className="hot">۱۱–۱۶ فرجه</span>
+            <span>۱۷ ریاضی</span>
+            <span>۳۰ کنکور</span>
           </div>
-          <button type="button" className="ghost" onClick={onReset}>
-            عوض کردن گروه
-          </button>
+          <div className="top-actions">
+            <div className="progress-wrap" aria-label="پیشرفت برنامه">
+              <span>
+                {doneCount} از {totalBlocks}
+              </span>
+              <div className="progress-track">
+                <div className="progress-fill" style={{ width: `${progress}%` }} />
+              </div>
+            </div>
+            <button type="button" className="ghost" onClick={onReset}>
+              عوض کردن گروه
+            </button>
+          </div>
         </div>
       </header>
 
@@ -247,12 +255,36 @@ export default function App() {
         <section className="hero-bleed">
           <div className="hero-mesh" aria-hidden="true" />
           <div className="hero-core">
-            <Logo size="hero" />
-            <p className="brand">فرجه ۱۴۰۵</p>
-            <p className="hero-lead">
-              شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ مرداده، کنکور ۳۰ مرداد. از این فرجه هم نهایی رو جمع
-              می‌کنیم هم تست می‌زنیم — اول بگو جزو کدوم گروهی.
-            </p>
+            <div className="hero-brand-row">
+              <Logo size="hero" />
+              <div className="hero-brand-copy">
+                <p className="brand-kicker light">pepsino LAB · GET ACTIVE TO GROW</p>
+                <p className="brand">فرجه ۱۴۰۵</p>
+                <p className="hero-lead">
+                  شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ مرداده، کنکور ۳۰ مرداد. از این فرجه هم نهایی رو
+                  جمع می‌کنیم هم تست می‌زنیم — اول بگو جزو کدوم گروهی.
+                </p>
+              </div>
+            </div>
+
+            <div className="hero-dates" aria-label="تقویم فرجه">
+              <div>
+                <span>۱۰ مرداد</span>
+                <strong>پایان شیمی</strong>
+              </div>
+              <div className="is-hot">
+                <span>۱۱ تا ۱۶</span>
+                <strong>فرجه ریاضی + تست</strong>
+              </div>
+              <div>
+                <span>۱۷ مرداد</span>
+                <strong>نهایی ریاضی</strong>
+              </div>
+              <div>
+                <span>۳۰ مرداد</span>
+                <strong>کنکور</strong>
+              </div>
+            </div>
 
             <div className="group-pick" aria-label="انتخاب گروه">
               <button type="button" className="group-btn group-a" onClick={() => setGroup('A')}>
