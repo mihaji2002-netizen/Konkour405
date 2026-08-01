@@ -9,7 +9,7 @@ export function Logo({ size = 'hero' }: LogoProps) {
       <span className="logo-ring logo-ring-delay" aria-hidden="true" />
       <img
         className={`logo logo-${size}`}
-        src="/pepsino-lab-logo.png"
+        src={`${import.meta.env.BASE_URL}pepsino-lab-logo.png`}
         alt="pepsino LAB"
         width={size === 'hero' ? 220 : 48}
         height={size === 'hero' ? 220 : 48}
