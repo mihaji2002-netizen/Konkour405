@@ -84,12 +84,60 @@
   letter-spacing: 0.02em;
 }
 
+.hero-top-logos {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.hero-top-logos .logo-wrap-nav {
+  width: 44px;
+  height: 44px;
+}
+
+.hero-top-logos .logo-nav {
+  width: 40px;
+  height: 40px;
+}
+
+.partner-logo {
+  display: block;
+  height: 52px;
+  width: auto;
+  max-width: min(42vw, 168px);
+  object-fit: contain;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 0.2rem 0.35rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
 .hero-top-actions,
 .hero-cta-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .hero-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-top-logos {
+    justify-content: space-between;
+  }
+
+  .partner-logo {
+    height: 46px;
+  }
+
+  .hero-top-actions {
+    justify-content: flex-end;
+  }
 }
 
 .vault-btn,

@@ -336,7 +336,17 @@ export default function App() {
           <div className="hero-mesh" aria-hidden="true" />
           <div className="hero-core">
             <div className="hero-topbar">
-              <span className="hero-top-brand">pepsino LAB</span>
+              <div className="hero-top-logos" aria-label="لوگوها">
+                <Logo size="nav" />
+                <img
+                  className="partner-logo"
+                  src={`${import.meta.env.BASE_URL}roozbeh-khaksar-logo.png`}
+                  alt="روزبه خاکسار — گروه مشاوره و برنامه‌ریزی"
+                  width={148}
+                  height={148}
+                  decoding="async"
+                />
+              </div>
               <div className="hero-top-actions">
                 <button type="button" className="vault-btn" onClick={() => setScreen('links')}>
                   لینک‌دونی آزمون‌ها
