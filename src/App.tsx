@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { LinkVault } from './components/LinkVault'
 import { Logo } from './components/Logo'
 import { Signature } from './components/Signature'
 import { TelegramLink } from './components/TelegramLink'
@@ -9,6 +10,7 @@ import type { DayPlan, GroupIntro } from './data/types'
 import './App.css'
 
 type Group = 'A' | 'B' | null
+type Screen = 'home' | 'links'
 
 const GROUP_KEY = 'konkur1405-group'
 
@@ -90,6 +92,9 @@ function PlanView({
               </div>
             </div>
             <div className="top-btns">
+              <a className="ghost link-chip" href="#link-vault">
+                لینک‌دونی
+              </a>
               <TelegramLink variant="chip" />
               <button type="button" className="ghost" onClick={onReset}>
                 عوض کردن گروه
@@ -185,6 +190,8 @@ function PlanView({
           </button>
         ))}
       </nav>
+
+      <LinkVault embedded />
 
       <section className="days">
         <div className="section-head">
@@ -283,6 +290,7 @@ export default function App() {
     const saved = localStorage.getItem(GROUP_KEY)
     return saved === 'A' || saved === 'B' ? saved : null
   })
+  const [screen, setScreen] = useState<Screen>('home')
 
   useEffect(() => {
     if (group) localStorage.setItem(GROUP_KEY, group)
@@ -290,7 +298,35 @@ export default function App() {
 
   function resetGroup() {
     setGroup(null)
+    setScreen('home')
     localStorage.removeItem(GROUP_KEY)
+  }
+
+  if (screen === 'links') {
+    return (
+      <div className="shell links-page">
+        <header className="topbar">
+          <div className="topbar-glow" aria-hidden="true" />
+          <div className="brand-lockup">
+            <Logo size="nav" />
+            <div>
+              <p className="brand-kicker">pepsino LAB</p>
+              <p className="brand small">لینک‌دونی آزمون‌ها</p>
+            </div>
+          </div>
+          <div className="top-btns">
+            <TelegramLink variant="chip" />
+            <button type="button" className="ghost" onClick={() => setScreen('home')}>
+              برگشت
+            </button>
+          </div>
+        </header>
+        <LinkVault onBack={() => setScreen('home')} />
+        <footer className="foot">
+          <Signature tone="dark" />
+        </footer>
+      </div>
+    )
   }
 
   if (!group) {
@@ -301,7 +337,12 @@ export default function App() {
           <div className="hero-core">
             <div className="hero-topbar">
               <span className="hero-top-brand">pepsino LAB</span>
-              <TelegramLink variant="hero" />
+              <div className="hero-top-actions">
+                <button type="button" className="vault-btn" onClick={() => setScreen('links')}>
+                  لینک‌دونی آزمون‌ها
+                </button>
+                <TelegramLink variant="hero" />
+              </div>
             </div>
             <div className="hero-main">
               <div className="hero-brand-row">
@@ -313,7 +354,12 @@ export default function App() {
                     شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ و زیست ۲۰ مرداده، کنکور ۳۰ مرداد. برنامه از
                     فرجه ریاضی تا خود کنکور آماده‌ست — اول بگو جزو کدوم گروهی.
                   </p>
-                  <TelegramLink variant="hero" />
+                  <div className="hero-cta-row">
+                    <button type="button" className="vault-btn" onClick={() => setScreen('links')}>
+                      لینک‌دونی آزمون‌ها
+                    </button>
+                    <TelegramLink variant="hero" />
+                  </div>
                 </div>
               </div>
 
