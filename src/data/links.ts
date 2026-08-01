@@ -123,6 +123,9 @@ export const linkGroups: LinkGroup[] = [
       { title: 'گزینه‌۲ ۷ فروردین + پاسخ', url: 'https://my.uupload.ir/dl/zbmRJLN9' },
       { title: 'گزینه‌۲ ۱۴ فروردین + پاسخ', url: 'https://my.uupload.ir/dl/NdwXgkk0' },
       { title: 'گزینه‌۲ ۲۱ فروردین + پاسخ', url: 'https://my.uupload.ir/dl/dx9Vngoz' },
+      { title: 'گزینه‌۲ ۴ اردیبهشت + پاسخ', url: 'https://my.uupload.ir/dl/NdwX2rKA' },
+      { title: 'گزینه‌۲ ۱۱ اردیبهشت + پاسخ', url: 'https://my.uupload.ir/dl/VXw72E1o' },
+      { title: 'گزینه‌۲ ۱۸ اردیبهشت + پاسخ', url: 'https://my.uupload.ir/dl/v9VpbKr6' },
     ],
   },
 ]
