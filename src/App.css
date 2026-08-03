@@ -1368,19 +1368,6 @@ tbody tr.row-finale .col-num span {
   box-shadow: 0 8px 18px rgba(7, 38, 28, 0.18);
 }
 
-.link-track-note {
-  position: relative;
-  z-index: 1;
-  margin: 0 0 0.85rem;
-  padding: 0.7rem 0.85rem;
-  border-radius: 12px;
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.28);
-  color: var(--ink-soft);
-  font-size: 0.88rem;
-  line-height: 1.7;
-}
-
 .link-jump {
   position: relative;
   z-index: 1;
