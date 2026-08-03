@@ -6,19 +6,77 @@ import { TelegramLink } from './components/TelegramLink'
 import { withHearts } from './components/withHearts'
 import { groupADays, groupAIntro } from './data/groupA'
 import { groupBDays, groupBIntro } from './data/groupB'
+import { mathDays, mathIntro } from './data/math'
 import type { DayPlan, GroupIntro } from './data/types'
 import './App.css'
 
-type Group = 'A' | 'B' | null
+type Track = 'A' | 'B' | 'math'
+type Group = Track | null
 type Screen = 'home' | 'links'
 
 const GROUP_KEY = 'konkur1405-group'
 
-function doneKey(group: 'A' | 'B') {
+const trackMeta: Record<
+  Track,
+  {
+    label: string
+    shortLabel: string
+    intro: GroupIntro
+    days: DayPlan[]
+    finaleId: string
+    finaleKicker: string
+    route: { span: string; title: string }[]
+  }
+> = {
+  A: {
+    label: 'گروه A',
+    shortLabel: 'گروه A',
+    intro: groupAIntro,
+    days: groupADays,
+    finaleId: '30',
+    finaleKicker: '۳۰ مرداد · روز موعود',
+    route: [
+      { span: '۱۱ تا ۱۶', title: 'فرجه ریاضی + تست' },
+      { span: '۱۷ و ۲۰', title: 'نهایی ریاضی و زیست' },
+      { span: '۲۱ تا ۲۹', title: 'جامع و تورق' },
+      { span: '۳۰ مرداد', title: 'کنکور ۱۴۰۵' },
+    ],
+  },
+  B: {
+    label: 'گروه B',
+    shortLabel: 'گروه B',
+    intro: groupBIntro,
+    days: groupBDays,
+    finaleId: '30',
+    finaleKicker: '۳۰ مرداد · روز موعود',
+    route: [
+      { span: '۱۱ تا ۱۶', title: 'فرجه ریاضی + تست' },
+      { span: '۱۷ و ۲۰', title: 'نهایی ریاضی و زیست' },
+      { span: '۲۱ تا ۲۹', title: 'جامع و تورق' },
+      { span: '۳۰ مرداد', title: 'کنکور ۱۴۰۵' },
+    ],
+  },
+  math: {
+    label: 'رشته ریاضی',
+    shortLabel: 'ریاضی',
+    intro: mathIntro,
+    days: mathDays,
+    finaleId: '29',
+    finaleKicker: '۲۹ مرداد · روز موعود',
+    route: [
+      { span: '۱۳ تا ۱۶', title: 'فرجه حسابان + تست' },
+      { span: '۱۷ و ۲۰', title: 'نهایی حسابان و گسسته' },
+      { span: '۲۱ تا ۲۸', title: 'جامع و تورق' },
+      { span: '۲۹ مرداد', title: 'کنکور ۱۴۰۵' },
+    ],
+  },
+}
+
+function doneKey(group: Track) {
   return `konkur1405-done-${group}`
 }
 
-function loadDone(group: 'A' | 'B'): Record<string, boolean> {
+function loadDone(group: Track): Record<string, boolean> {
   try {
     return JSON.parse(localStorage.getItem(doneKey(group)) || '{}')
   } catch {
@@ -33,17 +91,9 @@ function scrollToDay(id: string) {
   })
 }
 
-function PlanView({
-  group,
-  intro,
-  days,
-  onReset,
-}: {
-  group: 'A' | 'B'
-  intro: GroupIntro
-  days: DayPlan[]
-  onReset: () => void
-}) {
+function PlanView({ group, onReset }: { group: Track; onReset: () => void }) {
+  const meta = trackMeta[group]
+  const { intro, days, finaleId, finaleKicker, route, label } = meta
   const [done, setDone] = useState<Record<string, boolean>>(() => loadDone(group))
   const [activeDay, setActiveDay] = useState(days[0].id)
 
@@ -71,16 +121,15 @@ function PlanView({
         <div className="brand-lockup">
           <Logo size="nav" />
           <div>
-            <p className="brand-kicker">pepsino LAB · گروه {group}</p>
+            <p className="brand-kicker">pepsino LAB · {label}</p>
             <p className="brand small">برنامه جمع‌بندی کنکور ۱۴۰۵</p>
           </div>
         </div>
         <div className="top-meta">
           <div className="top-dates" aria-hidden="true">
-            <span>۱۱–۱۶ ریاضی</span>
-            <span>۱۷و۲۰ نهایی</span>
-            <span>۲۱–۲۹ جامع</span>
-            <span>۳۰ کنکور</span>
+            {route.map((item) => (
+              <span key={item.span}>{item.span}</span>
+            ))}
           </div>
           <div className="top-actions">
             <div className="progress-wrap" aria-label="پیشرفت برنامه">
@@ -97,7 +146,7 @@ function PlanView({
               </a>
               <TelegramLink variant="chip" />
               <button type="button" className="ghost" onClick={onReset}>
-                عوض کردن گروه
+                عوض کردن برنامه
               </button>
             </div>
           </div>
@@ -105,7 +154,7 @@ function PlanView({
       </header>
 
       <section className="intro">
-        <p className="eyebrow">گروه {group}</p>
+        <p className="eyebrow">{label}</p>
         <h1>{intro.title}</h1>
         <p>{intro.lead}</p>
         <p>{intro.how}</p>
@@ -115,22 +164,12 @@ function PlanView({
       </section>
 
       <section className="route" aria-label="تقویم فرجه">
-        <div className="route-item">
-          <span>۱۱ تا ۱۶</span>
-          <strong>فرجه ریاضی + تست</strong>
-        </div>
-        <div className="route-item">
-          <span>۱۷ و ۲۰</span>
-          <strong>نهایی ریاضی و زیست</strong>
-        </div>
-        <div className="route-item">
-          <span>۲۱ تا ۲۹</span>
-          <strong>جامع و تورق</strong>
-        </div>
-        <div className="route-item">
-          <span>۳۰ مرداد</span>
-          <strong>کنکور ۱۴۰۵</strong>
-        </div>
+        {route.map((item) => (
+          <div className="route-item" key={item.span}>
+            <span>{item.span}</span>
+            <strong>{item.title}</strong>
+          </div>
+        ))}
       </section>
 
       <section className="table-wrap" id="overview">
@@ -152,7 +191,7 @@ function PlanView({
               {days.map((day, index) => (
                 <tr
                   key={day.id}
-                  className={day.id === '30' ? 'row-finale' : undefined}
+                  className={day.id === finaleId ? 'row-finale' : undefined}
                   onClick={() => {
                     setActiveDay(day.id)
                     scrollToDay(day.id)
@@ -200,7 +239,7 @@ function PlanView({
         </div>
 
         {days.map((day, dayIndex) => {
-          const isFinale = day.id === '30'
+          const isFinale = day.id === finaleId
           return (
             <article
               key={day.id}
@@ -222,7 +261,7 @@ function PlanView({
 
               {isFinale ? (
                 <div className="finale-card">
-                  <p className="finale-kicker">۳۰ مرداد · روز موعود</p>
+                  <p className="finale-kicker">{finaleKicker}</p>
                   {day.blocks.map((block, index) => {
                     const key = `${day.id}-${index}`
                     const checked = Boolean(done[key])
@@ -277,7 +316,7 @@ function PlanView({
 
       <footer className="foot">
         <Logo size="nav" />
-        <span>pepsino LAB · برنامه جمع‌بندی کنکور ۱۴۰۵ · گروه {group}</span>
+        <span>pepsino LAB · برنامه جمع‌بندی کنکور ۱۴۰۵ · {label}</span>
         <Signature tone="dark" />
         <TelegramLink variant="chip" />
       </footer>
@@ -285,10 +324,14 @@ function PlanView({
   )
 }
 
+function isTrack(value: string | null): value is Track {
+  return value === 'A' || value === 'B' || value === 'math'
+}
+
 export default function App() {
   const [group, setGroup] = useState<Group>(() => {
     const saved = localStorage.getItem(GROUP_KEY)
-    return saved === 'A' || saved === 'B' ? saved : null
+    return isTrack(saved) ? saved : null
   })
   const [screen, setScreen] = useState<Screen>('home')
 
@@ -361,8 +404,8 @@ export default function App() {
                   <p className="brand-kicker light">GET ACTIVE TO GROW</p>
                   <p className="brand">برنامه جمع‌بندی کنکور ۱۴۰۵</p>
                   <p className="hero-lead">
-                    شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ و زیست ۲۰ مرداده، کنکور ۳۰ مرداد. برنامه از
-                    فرجه ریاضی تا خود کنکور آماده‌ست — اول بگو جزو کدوم گروهی.
+                    شیمی ۱۰ مرداد تموم می‌شه، ریاضی ۱۷ و زیست/گسسته ۲۰ مرداده، کنکور آخر مرداد.
+                    برنامه از فرجه ریاضی تا خود کنکور آماده‌ست — اول رشته‌ت و مسیرت رو انتخاب کن.
                   </p>
                   <div className="hero-cta-row">
                     <button type="button" className="vault-btn" onClick={() => setScreen('links')}>
@@ -373,36 +416,68 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="group-pick" aria-label="انتخاب گروه">
-                <button type="button" className="group-btn group-a" onClick={() => setGroup('A')}>
-                  <span className="group-tag">گروه A</span>
-                  <strong>پایه رو برای کنکور خوندم</strong>
-                  <p>الان نیاز به مرور دارم برای زنده کردن توانایی‌هام توی پایه دهم و یازدهم.</p>
-                </button>
+              <div className="track-sections">
+                <div className="track-block">
+                  <p className="track-eyebrow">تجربی</p>
+                  <p className="track-hint">دو گروه جدا — بگو کدوم وضعیتی.</p>
+                  <div className="group-pick" aria-label="انتخاب گروه تجربی">
+                    <button
+                      type="button"
+                      className="group-btn group-a"
+                      onClick={() => setGroup('A')}
+                    >
+                      <span className="group-tag">گروه A</span>
+                      <strong>پایه رو برای کنکور خوندم</strong>
+                      <p>الان نیاز به مرور دارم برای زنده کردن توانایی‌هام توی پایه دهم و یازدهم.</p>
+                    </button>
 
-                <button type="button" className="group-btn group-b" onClick={() => setGroup('B')}>
-                  <span className="group-tag">گروه B</span>
-                  <strong>پایه رو خوب نخوندم</strong>
-                  <p>سرمایه‌گذاری‌م روی دوازدهم بوده برای درصد گرفتن از کنکور.</p>
-                </button>
+                    <button
+                      type="button"
+                      className="group-btn group-b"
+                      onClick={() => setGroup('B')}
+                    >
+                      <span className="group-tag">گروه B</span>
+                      <strong>پایه رو خوب نخوندم</strong>
+                      <p>سرمایه‌گذاری‌م روی دوازدهم بوده برای درصد گرفتن از کنکور.</p>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="track-block track-math">
+                  <p className="track-eyebrow">ریاضی</p>
+                  <p className="track-hint">بدون گروه‌بندی — یه برنامه واحد برای رشته ریاضی.</p>
+                  <button
+                    type="button"
+                    className="group-btn group-math"
+                    onClick={() => setGroup('math')}
+                    aria-label="برنامه رشته ریاضی"
+                  >
+                    <span className="group-tag">رشته ریاضی</span>
+                    <strong>دوازدهم رو برای نهایی خوندم، پایه رو مدت‌ها سراغش نرفتم</strong>
+                    <p>
+                      توی فرجه حسابان و گسسته با دوپینگ و گزینه‌۲ پایه رو زنده می‌کنیم، بعدش می‌ریم
+                      سراغ جامع و استراتژی کنکور.
+                    </p>
+                  </button>
+                </div>
               </div>
             </div>
 
             <div className="hero-dates" aria-label="تقویم فرجه">
               <div>
-                <span>۱۱ تا ۱۶</span>
-                <strong>فرجه ریاضی + تست</strong>
+                <span>۱۳ تا ۱۶</span>
+                <strong>فرجه + تست پایه</strong>
               </div>
               <div>
                 <span>۱۷ و ۲۰</span>
-                <strong>نهایی ریاضی و زیست</strong>
+                <strong>نهایی‌ها</strong>
               </div>
               <div>
-                <span>۲۱ تا ۲۹</span>
-                <strong>جامع و تورق کنکور</strong>
+                <span>۲۱ تا ۲۸</span>
+                <strong>جامع و تورق</strong>
               </div>
               <div>
-                <span>۳۰ مرداد</span>
+                <span>۲۹ / ۳۰</span>
                 <strong>کنکور ۱۴۰۵</strong>
               </div>
             </div>
@@ -414,11 +489,5 @@ export default function App() {
     )
   }
 
-  if (group === 'A') {
-    return (
-      <PlanView group="A" intro={groupAIntro} days={groupADays} onReset={resetGroup} />
-    )
-  }
-
-  return <PlanView group="B" intro={groupBIntro} days={groupBDays} onReset={resetGroup} />
+  return <PlanView group={group} onReset={resetGroup} />
 }

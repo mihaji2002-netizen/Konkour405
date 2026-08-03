@@ -279,15 +279,43 @@
   color: #f4fff7;
 }
 
-.group-pick {
+.track-sections {
   display: grid;
-  gap: 0.75rem;
+  gap: 1rem;
   animation: rise 0.7s ease 0.12s both;
 }
 
-@media (max-width: 859px) {
+.track-block {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.track-eyebrow {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--lime);
+  letter-spacing: 0.02em;
+}
+
+.track-hint {
+  margin: 0;
+  color: rgba(236, 250, 238, 0.72);
+  font-size: 0.88rem;
+}
+
+.track-math .group-math {
+  width: 100%;
+}
+
+.group-pick {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 860px) {
   .group-pick {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -339,6 +367,17 @@
 
 .group-b {
   border-inline-start: 4px solid var(--leaf);
+}
+
+.group-math {
+  border-inline-start: 4px solid #38bdf8;
+  background:
+    linear-gradient(120deg, rgba(56, 189, 248, 0.12), transparent 45%),
+    rgba(7, 38, 28, 0.45);
+}
+
+.group-math .group-tag {
+  color: #7dd3fc;
 }
 
 @media (max-width: 640px) {
