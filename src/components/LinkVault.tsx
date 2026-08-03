@@ -21,10 +21,6 @@ export function LinkVault({
 
   const groups = useMemo(() => linkGroups.filter((g) => g.track === track), [track])
   const total = groups.reduce((n, g) => n + g.items.length, 0)
-  const mathNote =
-    track === 'math'
-      ? 'بقیه تاریخ دوپینگ‌ها بودن ولی پاسخ نداشتن — فعلاً همین فایل‌های آماده‌ست.'
-      : null
 
   return (
     <section className={`link-vault ${embedded ? 'is-embedded' : ''}`} id="link-vault">
@@ -70,8 +66,6 @@ export function LinkVault({
           </button>
         ))}
       </div>
-
-      {mathNote && <p className="link-track-note">{mathNote}</p>}
 
       <nav className="link-jump" aria-label="دسته‌بندی آزمون‌ها">
         {groups.map((group) => (
