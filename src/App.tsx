@@ -418,7 +418,7 @@ export default function App() {
 
               <div className="track-sections">
                 <div className="track-block">
-                  <p className="track-eyebrow">تجربی</p>
+                  <h2 className="track-title">رشته تجربی</h2>
                   <p className="track-hint">دو گروه جدا — بگو کدوم وضعیتی.</p>
                   <div className="group-pick" aria-label="انتخاب گروه تجربی">
                     <button
@@ -444,19 +444,15 @@ export default function App() {
                 </div>
 
                 <div className="track-block track-math">
-                  <p className="track-eyebrow">ریاضی</p>
-                  <p className="track-hint">بدون گروه‌بندی — یه برنامه واحد برای رشته ریاضی.</p>
+                  <h2 className="track-title">رشته ریاضی</h2>
                   <button
                     type="button"
-                    className="group-btn group-math"
+                    className="group-btn group-math group-math-simple"
                     onClick={() => setGroup('math')}
                     aria-label="برنامه رشته ریاضی"
                   >
-                    <span className="group-tag">رشته ریاضی</span>
-                    <strong>دوازدهم رو برای نهایی خوندم، پایه رو مدت‌ها سراغش نرفتم</strong>
                     <p>
-                      توی فرجه حسابان و گسسته با دوپینگ و گزینه‌۲ پایه رو زنده می‌کنیم، بعدش می‌ریم
-                      سراغ جامع و استراتژی کنکور.
+                      اگه رشته ریاضی هستی اینجا کلیک کن تا برنامه مخصوص به خودت رو ببینی
                     </p>
                   </button>
                 </div>
