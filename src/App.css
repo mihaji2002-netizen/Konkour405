@@ -1331,6 +1331,56 @@ tbody tr.row-finale .col-num span {
   color: var(--forest-deep);
 }
 
+.link-track-tabs {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+  margin: 0 0 0.85rem;
+  padding: 0.3rem;
+  border-radius: 14px;
+  background: rgba(13, 59, 44, 0.06);
+  border: 1px solid rgba(13, 59, 44, 0.1);
+}
+
+.link-track-tab {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--forest);
+  font: inherit;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.link-track-tab:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.link-track-tab.is-active {
+  background: linear-gradient(145deg, var(--forest) 0%, #14523c 100%);
+  color: var(--lime);
+  box-shadow: 0 8px 18px rgba(7, 38, 28, 0.18);
+}
+
+.link-track-note {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 0.85rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 12px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
 .link-jump {
   position: relative;
   z-index: 1;
@@ -1389,7 +1439,9 @@ tbody tr.row-finale .col-num span {
     grid-template-columns: 1fr 1fr;
   }
 
-  .link-group[id='vault-gozine2'] {
+  .link-group[id='vault-gozine2'],
+  .link-group[id='vault-math-gozine2'],
+  .link-group[id='vault-math-doping'] {
     grid-column: 1 / -1;
   }
 }

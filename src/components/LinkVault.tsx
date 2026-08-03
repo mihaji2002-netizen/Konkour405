@@ -1,12 +1,30 @@
-import { linkGroups } from '../data/links'
+import { useMemo, useState } from 'react'
+import { linkGroups, type LinkTrack } from '../data/links'
 
 type LinkVaultProps = {
   onBack?: () => void
   embedded?: boolean
+  defaultTrack?: LinkTrack
 }
 
-export function LinkVault({ onBack, embedded = false }: LinkVaultProps) {
-  const total = linkGroups.reduce((n, g) => n + g.items.length, 0)
+const trackLabels: Record<LinkTrack, string> = {
+  tajrobi: 'رشته تجربی',
+  math: 'رشته ریاضی',
+}
+
+export function LinkVault({
+  onBack,
+  embedded = false,
+  defaultTrack = 'tajrobi',
+}: LinkVaultProps) {
+  const [track, setTrack] = useState<LinkTrack>(defaultTrack)
+
+  const groups = useMemo(() => linkGroups.filter((g) => g.track === track), [track])
+  const total = groups.reduce((n, g) => n + g.items.length, 0)
+  const mathNote =
+    track === 'math'
+      ? 'بقیه تاریخ دوپینگ‌ها بودن ولی پاسخ نداشتن — فعلاً همین فایل‌های آماده‌ست.'
+      : null
 
   return (
     <section className={`link-vault ${embedded ? 'is-embedded' : ''}`} id="link-vault">
@@ -26,7 +44,7 @@ export function LinkVault({ onBack, embedded = false }: LinkVaultProps) {
               لینک آماده
             </span>
             <span>
-              <strong>{linkGroups.length}</strong>
+              <strong>{groups.length}</strong>
               دسته آزمون
             </span>
           </div>
@@ -38,8 +56,25 @@ export function LinkVault({ onBack, embedded = false }: LinkVaultProps) {
         )}
       </div>
 
+      <div className="link-track-tabs" role="tablist" aria-label="انتخاب رشته لینک‌دونی">
+        {(Object.keys(trackLabels) as LinkTrack[]).map((key) => (
+          <button
+            key={key}
+            type="button"
+            role="tab"
+            aria-selected={track === key}
+            className={`link-track-tab ${track === key ? 'is-active' : ''}`}
+            onClick={() => setTrack(key)}
+          >
+            {trackLabels[key]}
+          </button>
+        ))}
+      </div>
+
+      {mathNote && <p className="link-track-note">{mathNote}</p>}
+
       <nav className="link-jump" aria-label="دسته‌بندی آزمون‌ها">
-        {linkGroups.map((group) => (
+        {groups.map((group) => (
           <a key={group.id} className="link-jump-chip" href={`#vault-${group.id}`}>
             <span>{group.title}</span>
             <em>{group.items.length}</em>
@@ -48,7 +83,7 @@ export function LinkVault({ onBack, embedded = false }: LinkVaultProps) {
       </nav>
 
       <div className="link-groups">
-        {linkGroups.map((group, groupIndex) => (
+        {groups.map((group, groupIndex) => (
           <div
             key={group.id}
             className="link-group"

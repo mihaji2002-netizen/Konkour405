@@ -230,7 +230,11 @@ function PlanView({ group, onReset }: { group: Track; onReset: () => void }) {
         ))}
       </nav>
 
-      <LinkVault embedded />
+      <LinkVault
+        key={group}
+        embedded
+        defaultTrack={group === 'math' ? 'math' : 'tajrobi'}
+      />
 
       <section className="days">
         <div className="section-head">

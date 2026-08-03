@@ -4,9 +4,12 @@ export type DownloadLink = {
   note?: string
 }
 
+export type LinkTrack = 'tajrobi' | 'math'
+
 export type LinkGroup = {
   id: string
   title: string
+  track: LinkTrack
   items: DownloadLink[]
 }
 
@@ -14,6 +17,7 @@ export const linkGroups: LinkGroup[] = [
   {
     id: 'maz-28',
     title: 'ماز ۲۸ خرداد',
+    track: 'tajrobi',
     items: [
       {
         title: 'ماز ۲۸ خرداد دفترچه یک',
@@ -27,6 +31,7 @@ export const linkGroups: LinkGroup[] = [
   {
     id: 'kheili-sabz',
     title: 'خیلی سبز',
+    track: 'tajrobi',
     items: [
       { title: 'آزمون ۱۲ تیر خیلی سبز', url: 'https://my.uupload.ir/dl/yoWO28wJ' },
       { title: 'پاسخ آزمون ۱۲ تیر خیلی سبز', url: 'https://my.uupload.ir/dl/dx9VnkZN' },
@@ -35,6 +40,7 @@ export const linkGroups: LinkGroup[] = [
   {
     id: 'doping-25',
     title: 'دوپینگ ۲۵ خرداد',
+    track: 'tajrobi',
     items: [
       { title: 'دوپینگ زیست ۲۵ خرداد', url: 'https://my.uupload.ir/dl/NdwXg2YR' },
       { title: 'پاسخ دوپینگ زیست ۲۵ خرداد', url: 'https://my.uupload.ir/dl/JgwyW2N2' },
@@ -45,6 +51,7 @@ export const linkGroups: LinkGroup[] = [
   {
     id: 'doping-21',
     title: 'دوپینگ ۲۱ خرداد',
+    track: 'tajrobi',
     items: [
       { title: 'آزمون دوپینگ ۲۱ خرداد زیست', url: 'https://my.uupload.ir/dl/0jk5952p' },
       { title: 'پاسخ دوپینگ ۲۱ خرداد زیست', url: 'https://my.uupload.ir/dl/JgwyWywN' },
@@ -59,6 +66,7 @@ export const linkGroups: LinkGroup[] = [
   {
     id: 'doping-11',
     title: 'دوپینگ ۱۱ خرداد',
+    track: 'tajrobi',
     items: [
       { title: 'دوپینگ ۱۱ خرداد زیست', url: 'https://my.uupload.ir/dl/dx9VnQmd' },
       { title: 'پاسخ دوپینگ ۱۱ خرداد زیست', url: 'https://my.uupload.ir/dl/mbJGxQxv' },
@@ -73,6 +81,7 @@ export const linkGroups: LinkGroup[] = [
   {
     id: 'doping-6',
     title: 'دوپینگ ۶ خرداد',
+    track: 'tajrobi',
     items: [
       { title: 'دوپینگ زیست ۶ خرداد', url: 'https://my.uupload.ir/dl/VXw7jzMW' },
       { title: 'پاسخ دوپینگ زیست ۶ خرداد', url: 'https://my.uupload.ir/dl/eyJKWAnr' },
@@ -87,6 +96,7 @@ export const linkGroups: LinkGroup[] = [
   {
     id: 'doping-2',
     title: 'دوپینگ ۲ خرداد',
+    track: 'tajrobi',
     items: [
       { title: 'دوپینگ زیست ۲ خرداد', url: 'https://my.uupload.ir/dl/kjLgGGge' },
       { title: 'پاسخ دوپینگ زیست ۲ خرداد', url: 'https://my.uupload.ir/dl/1Ldz77dV' },
@@ -101,6 +111,7 @@ export const linkGroups: LinkGroup[] = [
   {
     id: 'doping-29',
     title: 'دوپینگ ۲۹ اردیبهشت',
+    track: 'tajrobi',
     items: [
       { title: 'دوپینگ زیست ۲۹ اردیبهشت', url: 'https://my.uupload.ir/dl/0jk599VX' },
       { title: 'پاسخ دوپینگ زیست ۲۹ اردیبهشت', url: 'https://my.uupload.ir/dl/JgwyWWdA' },
@@ -113,6 +124,7 @@ export const linkGroups: LinkGroup[] = [
   {
     id: 'gozine2',
     title: 'گزینه‌۲',
+    track: 'tajrobi',
     items: [
       { title: 'گزینه‌۲ ۱۲ دی + پاسخ', url: 'https://my.uupload.ir/dl/dx9VngZz' },
       {
@@ -126,6 +138,54 @@ export const linkGroups: LinkGroup[] = [
       { title: 'گزینه‌۲ ۴ اردیبهشت + پاسخ', url: 'https://my.uupload.ir/dl/NdwX2rKA' },
       { title: 'گزینه‌۲ ۱۱ اردیبهشت + پاسخ', url: 'https://my.uupload.ir/dl/VXw72E1o' },
       { title: 'گزینه‌۲ ۱۸ اردیبهشت + پاسخ', url: 'https://my.uupload.ir/dl/v9VpbKr6' },
+    ],
+  },
+
+  // ——— رشته ریاضی ———
+  {
+    id: 'math-maz-28',
+    title: 'ماز ۲۸ خرداد ریاضی',
+    track: 'math',
+    items: [
+      { title: 'ماز ۲۸ خرداد رشته ریاضی دفترچه یک', url: 'https://my.uupload.ir/dl/BvxQL5AW' },
+      { title: 'ماز ۲۸ خرداد رشته ریاضی دفترچه دو', url: 'https://my.uupload.ir/dl/BvxQL5GR' },
+      { title: 'پاسخ ماز ۲۸ خرداد رشته ریاضی', url: 'https://my.uupload.ir/dl/4eX0JaQD' },
+    ],
+  },
+  {
+    id: 'math-kheili-sabz',
+    title: 'خیلی سبز ریاضی',
+    track: 'math',
+    items: [
+      { title: 'خیلی سبز ۱۶ تیر رشته ریاضی', url: 'https://my.uupload.ir/dl/0jkOjmOG' },
+    ],
+  },
+  {
+    id: 'math-doping',
+    title: 'دوپینگ ریاضی',
+    track: 'math',
+    items: [
+      { title: 'دوپینگ ۲۱ خرداد رشته ریاضی', url: 'https://my.uupload.ir/dl/mbJAOALv' },
+      {
+        title: 'دوپینگ ۲۱ خرداد رشته ریاضی + پاسخ',
+        url: 'https://my.uupload.ir/dl/NdwQzr9R',
+      },
+      {
+        title: 'دوپینگ ۶ خرداد رشته ریاضی + پاسخ',
+        url: 'https://s33.uupload.ir/files/drhajiii/12R-دوپینگ%206%20خرداد.zip',
+        note: 'فایل زیپ',
+      },
+    ],
+  },
+  {
+    id: 'math-gozine2',
+    title: 'گزینه‌۲ ریاضی',
+    track: 'math',
+    items: [
+      { title: 'گزینه‌۲ ۱۲ دی رشته ریاضی', url: 'https://my.uupload.ir/dl/EOkwOW9M' },
+      { title: 'گزینه‌۲ ۷ فروردین رشته ریاضی', url: 'https://my.uupload.ir/dl/wZKGZpby' },
+      { title: 'گزینه‌۲ ۱۴ فروردین رشته ریاضی', url: 'https://my.uupload.ir/dl/n2JV2WZK' },
+      { title: 'گزینه‌۲ ۲۱ فروردین رشته ریاضی', url: 'https://my.uupload.ir/dl/eyJxy24V' },
     ],
   },
 ]
